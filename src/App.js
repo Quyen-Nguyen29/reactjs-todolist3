@@ -22,7 +22,8 @@ import { completed, unCompleted, all } from './variables/variable'
  * 2.hàm dùng handling click add item và hàm handling click add edit  todo có thể gộp lại làm 1 ( truyền object)--> khi edit thì todo sẽ có id, còn add thì k có id
  * 3.hàm 1 search vơi filter đổi parameter là 1 object
  *
- *
+ * ********** Relize********
+ * Function có process tương tự nhau có thể dùng chung 1 function, chỉ cần truyền parameter khác nhau.
  */
 
 
@@ -62,24 +63,56 @@ function App() {
 
 
   //////////////////////////////////////////
+  //get input text value
   const getInputValue = (e) => {
     setInputText(e.target.value)
   }
+//get input text value
+  const getEditPopUpValue = ({ textInput }) => {
+    setInputTextPopup(textInput)
+
+  }
+
+  
+  //handling get search value
+  const gettingSearchTodoValue = (searchText) => {
+    setSearchTerm(searchText)
+
+  }
+
+   //handling get filter value //all- completed -uncompleted
+   const gettingFilterOptionValue = (optionFilter) => {
+    setFilterStateValue(optionFilter)
+
+  }
+
 
   //handling click add item 
   const handlingAddItem = ({ id, textInput }) => {
-    if (textInput === "") {
-      alert("Please type your todo ")
-      return
-    }
-
+  
     // click add edit  todo
-    if (id ) {
-      setInputTextPopup(textInput)
+    if (id) {
+      if (inputTextPopup === "") {
+        alert("Please type your todo ")
+        return
+      }
+      setTodos(
+        todos.map((todo) => {
+          if (todo.id === id) {
+            return { ...todo, "text": inputTextPopup }
+          }
+          return todo
+        })
+      )
+      setShowPopup(false)
     }
 
     // click add new  todo
     if (textInput && !id) {
+      if (textInput === "") {
+        alert("Please type your todo ")
+        return
+      }
       setTodos([...todos, { 'id': todos.length + 1, "text": textInput, "status": unCompleted }])
       setInputText('');
     }
@@ -115,33 +148,6 @@ function App() {
   }
 
 
-  //handling add editpopup
-  const handlingAddEditPopUp = (todoId) => {
-
-    setTodos(
-      todos.map((todo) => {
-        if (todo.id === todoId) {
-          return { ...todo, "text": inputTextPopup }
-        }
-        return todo
-      })
-    )
-    setShowPopup(false)
-  }
-
-  //handling get search text
-
-  const gettingSearchTodoValue = (searchText) => {
-    setSearchTerm(searchText)
-
-  }
-
-  //handling get filter value //all- completed -uncompleted
-  const gettingFilterOptionValue = (optionFilter) => {
-    setFilterStateValue(optionFilter)
-
-  }
-
   //handling get filter value //all- completed -uncompleted
   const todosUI = todos.filter(todo => {
 
@@ -155,13 +161,6 @@ function App() {
       return true;
     }
   }).filter(todo => todo.text.toLowerCase().includes(searchTerm.toLowerCase()));
-
-
-
-
-
-
-
 
 
 
@@ -179,8 +178,8 @@ function App() {
 
         <Popup todo={todo}
           inputTextPopup={inputTextPopup}
-          handlingEditPopUp={handlingAddItem}
-          handlingAddEditPopUp={handlingAddEditPopUp}
+          getEditPopUpValue={getEditPopUpValue}
+          handlingAddItem={handlingAddItem}
           setShowPopup={setShowPopup}
           showPopup={showPopup} />
 
