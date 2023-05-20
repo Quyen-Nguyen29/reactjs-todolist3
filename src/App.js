@@ -20,7 +20,7 @@ import { completed, unCompleted, all } from './variables/variable'
  * ********** Todo********
  * 1.hàm edit todo: thay đổi parameter la 1 object thay vì chỉ truyền text như hiện tại
  * 2.hàm dùng handling click add item và hàm handling click add edit  todo có thể gộp lại làm 1 ( truyền object)--> khi edit thì todo sẽ có id, còn add thì k có id
- * 3.hàm 1 search vơi filter đổi parameter là 1 object
+ * 3.hàm 1 search vơi filter đổi parameter là 1 object --> ko hiểu, Hiện tại todo là 1 object
  *
  * ********** Relize********
  * Function có process tương tự nhau có thể dùng chung 1 function, chỉ cần truyền parameter khác nhau.
@@ -63,33 +63,52 @@ function App() {
 
 
   //////////////////////////////////////////
+  // //get input text value
+  const getInputValue = (textInput) => {
+    setInputText(textInput)
+  }
   //get input text value
-  const getInputValue = (e) => {
-    setInputText(e.target.value)
-  }
-//get input text value
-  const getEditPopUpValue = ({ textInput }) => {
-    setInputTextPopup(textInput)
+  const getEditPopUpValue = ({ textPopupInput }) => {
+    setInputTextPopup(textPopupInput)
 
   }
 
-  
   //handling get search value
   const gettingSearchTodoValue = (searchText) => {
     setSearchTerm(searchText)
 
   }
 
-   //handling get filter value //all- completed -uncompleted
-   const gettingFilterOptionValue = (optionFilter) => {
+  //handling get filter value //all- completed -uncompleted
+  const gettingFilterOptionValue = (optionFilter) => {
     setFilterStateValue(optionFilter)
-
   }
 
+ ////////////////// cách tạo 1 function getvalue để dùng chung ko đc why??
 
+  // const getValue = ({ textInput, textPopupInput, searchText, optionFilter }) => {
+  //   if (textInput) {
+  //     setInputText(textInput)
+  //   }
+
+  //   if (textPopupInput) {
+  //     setInputTextPopup(textPopupInput)
+  //   }
+
+  //   if (searchText) {
+  //     setSearchTerm(searchText)
+  //   }
+
+  //   if (optionFilter) {
+  //     setFilterStateValue(optionFilter)
+  //   }
+
+  // }
+
+ 
   //handling click add item 
   const handlingAddItem = ({ id, textInput }) => {
-  
+
     // click add edit  todo
     if (id) {
       if (inputTextPopup === "") {
@@ -148,7 +167,7 @@ function App() {
   }
 
 
-  //handling get filter value //all- completed -uncompleted
+  //handling data filter todo
   const todosUI = todos.filter(todo => {
 
     if (filterStateValue === unCompleted) {
@@ -178,7 +197,7 @@ function App() {
 
         <Popup todo={todo}
           inputTextPopup={inputTextPopup}
-          getEditPopUpValue={getEditPopUpValue}
+          getPopupValue={getEditPopUpValue}
           handlingAddItem={handlingAddItem}
           setShowPopup={setShowPopup}
           showPopup={showPopup} />
