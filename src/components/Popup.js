@@ -11,7 +11,7 @@ export default function Popup({ todo, inputTextPopup, handlingEditPopUp, handlin
                 <span className="close-btn" onClick={() => setShowPopup(false)}>x</span>
                 <div className="popup-content">
                     <label>Edit the todo</label>
-                    <input type="text" value={inputTextPopup} onChange={(e) => handlingEditPopUp(e.target.value)} />
+                    <input type="text" value={inputTextPopup} onChange={(e) => handlingEditPopUp({"id":todo.id ,"textInput":e.target.value})} />
                     <button onClick={() => handlingAddEditPopUp(todo.id)} >Add</button>
                 </div>
             </div>
