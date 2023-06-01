@@ -95,8 +95,8 @@ label.add {
     height: 100vh;
     z-index: 99;
     background-color: rgba(0, 0, 0, .8);
-    opacity: 0;
-    visibility: hidden;
+    opacity: 1;
+    visibility: visible;
     transition: all .2s;
 
 

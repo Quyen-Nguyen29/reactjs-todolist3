@@ -1,15 +1,16 @@
 import TodoItem from './TodoItem';
 
 
-export default function TodoList({todosUI, todos, handlingDeleteTodo, toogleTodoStatus, handlingOpenEditPopUp }) {
+export default function TodoList({ todos, handlingDeleteTodo, toogleTodoStatus, handlingOpenEditPopUp,setTodo }) {
 
     return (
 
         <ul>
             {
-                todosUI.map((todo, i) => {
+                todos.map((todo, i) => {
                     return (
                         <TodoItem key={i} todo={todo}
+                            setTodo={setTodo}
                             handlingDeleteTodo={handlingDeleteTodo}
                             toogleTodoStatus={toogleTodoStatus}
                             handlingOpenEditPopUp={handlingOpenEditPopUp} />

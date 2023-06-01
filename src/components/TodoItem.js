@@ -1,7 +1,7 @@
 import { completed, unCompleted } from '../variables/variable'
 
 
-export default function TodoItem({ todo, handlingDeleteTodo, toogleTodoStatus, handlingOpenEditPopUp }) {
+export default function TodoItem({ todo, handlingDeleteTodo, toogleTodoStatus, handlingOpenEditPopUp,setTodo }) {
 
   return (
 
@@ -9,7 +9,7 @@ export default function TodoItem({ todo, handlingDeleteTodo, toogleTodoStatus, h
       <span>
         <img onClick={() => toogleTodoStatus(todo.id)} src="../assets/images/icon-complete.png" alt="icon complete" />
         <img onClick={() => handlingDeleteTodo(todo.id)} src="../assets/images/icon-delete.png" alt="icon delete" />
-        <span onClick={()=> handlingOpenEditPopUp(todo)}>Edit</span>
+        <span onClick={()=> setTodo(todo)}>Edit</span>
       </span>
     </li>
 

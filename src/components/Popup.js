@@ -1,18 +1,19 @@
 
 
 
-export default function Popup({ todo, inputTextPopup, getPopupValue, handlingAddItem, setShowPopup, showPopup }) {
-
+export default function Popup({ todo, setTodo,handleUpsert}) {
+    const setValue=(e)=>{
+        // e.preve
+        setTodo({...todo,text:e.target.value})
+    }
     return (
-
-        <div className={`popup ${showPopup ? "showed" : ""}`}>
-            <div className={`popup-container ${showPopup ? "showed" : ""}`} >
-
-                <span className="close-btn" onClick={() => setShowPopup(false)}>x</span>
+        <div className={`popup showed"`}>
+            <div className={`popup-container showed`} >
+                <span className="close-btn" onClick={() => setTodo(null)}>x</span>
                 <div className="popup-content">
-                    <label>Edit the todo</label>
-                    <input type="text" value={inputTextPopup} onChange={(e) => getPopupValue(e.target.value)} />
-                    <button onClick={() => handlingAddItem({"id":todo.id})} >Add</button>
+                    <label>{ todo.id ? "Edit":"Add"} the todo</label>
+                    <input type="text" value={todo.text} onChange={(e) => setValue(e)} />
+                    <button onClick={() => handleUpsert()} >{ todo.id ? "Edit":"Add"}</button>
                 </div>
             </div>
 
